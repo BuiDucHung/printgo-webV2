@@ -1,6 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+const { ASSET_HOST } = process.env
 
-module.exports = nextConfig
+const assetPrefix = ASSET_HOST || ''
+module.exports = {
+    assetPrefix,
+    target: 'serverless',
+    webpack: (config, { dev }) => {
+        config.output.publicPath = `${assetPrefix}${config.output.publicPath}`
+        return config
+    },
+}

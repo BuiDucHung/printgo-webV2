@@ -1,0 +1,31 @@
+.inputAuth {
+    height: 39px !important;
+    border-radius: 20px !important;
+    border-color: var(--colorPrimary) !important;
+}
+
+.btnLogin {
+    width: 100%;
+    border-radius: 50px !important;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    line-height: 17px;
+    height: 37px !important;
+    margin-top: 5px;
+    background-color: var(--colorPrimary) !important;
+    border: none !important;
+}
+
+.changeAuth {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    width:135px; 
+    height:135px; 
+    border-radius: 0px 0px 0px 136px; 
+    padding-right: 10;
+    background: linear-gradient(90deg, rgba(65,230,199,1) 43%, rgba(58,231,220,1) 100%);
+    border-top-right-radius: 15px;
+    padding-right: 15px;
+}

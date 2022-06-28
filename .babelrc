@@ -1,0 +1,9 @@
+{
+    "presets": [ "next/babel" ],
+    "plugins": [
+        ["inline-dotenv"],
+        ["module-resolver", {"root": ["./src"]}],
+        ["babel-plugin-styled-components",  {"ssr": true}]
+      ]
+  }
+  

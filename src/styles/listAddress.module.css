@@ -1,0 +1,22 @@
+.panelHeading {
+    color: #333333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+}
+.btnSuccess {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    color: var(--white);
+    border-radius: 5px;
+    height: 40px;
+}
+.btnSuccess:hover {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    color: var(--white);
+}
