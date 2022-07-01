@@ -1,51 +1,77 @@
 import React, {useState} from 'react'
-import { Button, Checkbox, Col, Form, Input, Radio, Row, Space, Table, Tabs, Tag, Typography } from 'antd';
-
+import { Button, Col, Popconfirm, Radio, Row, Space, Table, Typography } from 'antd';
+import {DeleteOutlined} from '@ant-design/icons';
 import styles from 'styles/payInfo.module.css'
 import btn from 'styles/customerUser.module.css'
-import { PlusSquareOutlined } from '@ant-design/icons';
-import Link from 'next/link';
+import { PlusSquareOutlined, FormOutlined } from '@ant-design/icons';
+
 import { useStore } from 'StoreContext';
-import { update } from 'methods/user';
-import { getService } from 'service/userService';
+import { updateStore } from 'methods/user';
 
 const { Title } = Typography;
 
-
-const PayInfo = ({listAddress}) => {
+const PayInfo = ({listAddress, setAddress, onEdit, onDelete}) => {
+    
     const { state: {user}} = useStore();
-    const getData = listAddress.map((item) => ({key: item.id , name: item.receiverName, phone: item.mobilePhone, address: item.address}));
+    const getData = listAddress.map((item) => ({id: item.id , receiverName: item.receiverName, 
+      mobilePhone: item.mobilePhone, address: item.address, provinceId: item.provinceId, districtId: item.districtId,
+      customerId: item.customerId, wardId: item.wardId, isDefault: item.isDefault}));
     const [currentPay, setCurrentPay] = useState(user?.payMethod || 'CK');
 
+
+      
     const columns = [
       {
         title: 'Họ tên',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'receiverName',
+        key: 'receiverName',
+        onCell: (record) => ({
+          style: {
+            backgroundColor: record.isDefault == 1 ? '' : '#dcdcdc'
+          }
+        })
       },
       {
         title: 'Số điện thoại',
-        dataIndex: 'phone',
-        key: 'phone',
+        dataIndex: 'mobilePhone',
+        key: 'mobilePhone',
+        onCell: (record) => ({
+          style: {
+            backgroundColor: record.isDefault == 1 ? '' : '#dcdcdc'
+          }
+        })
       },
       {
         title: 'Địa chỉ',
         key: 'address',
         dataIndex: 'address',
+        onCell: (record) => ({
+          style: {
+            backgroundColor: record.isDefault == 1 ? '' : '#dcdcdc'
+          }
+        })
       },
       {
         title: 'Thao tác',
         key: 'action',
         render: (_, record) => (
-          <Space size="middle">
-            <Link href={`/customer-address/${record.key}`}>Sửa</Link>
-            <a>Xóa</a>
+        <Space size="middle">
+        <p onClick={() => onEdit(record)} style={{cursor: 'pointer'}}><FormOutlined className={styles.update}/> Sửa</p>
+        <Popconfirm title="Bạn có chắc chắn muốn xóa" onConfirm={(() => onDelete(record.id))}>
+          <p style={{cursor: 'pointer'}}><DeleteOutlined className={styles.delete}/> Xóa</p>
+        </Popconfirm>
           </Space>
         ),
+        onCell:(record) => ({
+          style: {
+            backgroundColor: record.isDefault == 1 ? '' : '#dcdcdc'
+          }
+        })
       },
     ];
+  
     const onSubmit = () => {
-       update({...user, payMethod: currentPay})
+      updateStore({...user, payMethod: currentPay})
     };
     
     
@@ -58,14 +84,14 @@ const PayInfo = ({listAddress}) => {
                 </Col>
                 <Col span={8}>
                 <div className={styles.adddress}>
-                <Link href={'/customer-address/create'}><a><Button icon={<PlusSquareOutlined />} className={btn.upLoad}>THÊM ĐỊA CHỈ MỚI</Button></a></Link>
+                <Button onClick={() => setAddress({})} icon={<PlusSquareOutlined />} className={btn.upLoad}>THÊM ĐỊA CHỈ MỚI</Button>
                 </div>
                 </Col>
             </Row>
             <hr/>
               <div>
               <Table pagination={false} dataSource={getData} columns={columns}/> 
-              <p style={{paddingTop: 10,fontSize: 13, fontStyle: 'italic'}}><span style={{color: 'red', fontSize: 13, fontWeight: 500}}>
+              <p style={{paddingTop: 15,fontSize: 13, fontStyle: 'italic'}}><span style={{color: 'red', fontSize: 13, fontWeight: 500}}>
               <b>*Lưu ý:</b>
               </span> Địa chỉ được chọn phía trên (dòng sáng) sẽ là địa chỉ mặc định để giao hàng</p>
               </div>
@@ -74,73 +100,13 @@ const PayInfo = ({listAddress}) => {
             <Title level={2} className={styles.title}>Phương thức thanh toán</Title>
             <hr/>
             <div style={{paddingLeft: 20}}>
-            <Radio.Group onChange={((e) => setCurrentPay(e.target.value))}>
-            <Radio value="CK">Chuyển khoản</Radio>
-            <Radio value="QR">Mã QR Code</Radio>
+            <Radio.Group defaultValue="CK" onChange={((e) => setCurrentPay(e.target.value))}>
+            <Radio value='CK'>Chuyển khoản</Radio>
+            <Radio value='QR'>Mã QR Code</Radio>
             </Radio.Group>
           </div>
           <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           <Button htmlType="submit" onClick={onSubmit} className={btn.Submit} style={{marginBottom: 20}}>Cập nhập</Button>
-            {/* <Tabs defaultActiveKey='1'>
-              <TabPane tab="Thẻ ATM nội địa (Internet Banking)" key={'1'}>
-              <div style={{paddingLeft: 20}}>
-                <Title level={3} style={{fontSize: 15}}>Bạn cần có</Title> 
-                <p style={{fontSize: 12}}>1. Thẻ ATM</p>
-                <p style={{fontSize: 12}}>2. Đã đăng ký dịch vụ THANH TOÁN TRỰC TUYẾN và / hoặc NGÂN HÀNG ĐIỆN TỬ (Internet Banking)</p>
-                <p style={{fontSize: 12}}>3. Số dư tài khoản PHẢI LỚN HƠN tổng giá trị đơn hàng</p>
-              </div>
-              <hr/>
-              </TabPane>
-              <TabPane tab="Thanh toán khi nhận hàng" key={'2'}>
-                 <div style={{paddingLeft: 20}}>
-                   <p style={{fontSize: 12}}>Bạn có thể thanh toán bằng tiền mặt khi nhận hàng tại nhà, Sau khi đặt hàng thành công, nhân viên chúng tôi sẽ liên hệ với bạn</p>
-                 </div>
-                 <hr/>
-              </TabPane>
-            <TabPane tab="Thẻ tín dụng/Ghi nợ" key={'3'}>
-                <div style={{paddingLeft: 20}}>
-            <Form  layout="vertical" style={{width: '50%'}}
-            initialValues={{
-            remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off">
-            <Radio.Group className='radioCustom'>
-            <Radio value="A">
-                <img alt="img" width={35} height={30} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-            </Radio>
-            <Radio value="B">
-                <img alt="img" width={35} height={30} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-            </Radio>
-            <Radio value="C"> <img alt="img" width={35} height={30} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-            </Radio>
-            </Radio.Group>
-            <Form.Item  label="Số thẻ" name="cart" rules={[{ required: true, message: 'Please input your username!' }]}>
-                <Input type={'number'}/>
-            </Form.Item>
-            <Form.Item  label="Tên trên thẻ" name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
-                <Input />
-            </Form.Item>
-                <Row gutter={[16, 16]}>
-                    <Col span={12}>
-                    <Form.Item  label="Ngày hết hạn" name="date" rules={[{ required: true, message: 'Please input your username!' }]}>
-                    <Input />
-                </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                    <Form.Item  label="CCV " name="ccv" rules={[{ required: true, message: 'Please input your username!' }]}>
-                    <Input />
-                </Form.Item>
-                    </Col>
-                </Row>
-                <Checkbox onChange={onChange}><p style={{fontSize: 14}}>Đặt thông tin thanh toán mặc định</p>
-                <p style={{marginTop: 37, fontSize: 11}}>Thông tin được mã hóa và lưu trữ an toàn.</p>
-                </Checkbox>
-                     </Form>
-                 </div>
-              </TabPane>
-            </Tabs> */}
             </div>
         </div>
     </div>

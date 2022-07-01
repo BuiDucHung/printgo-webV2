@@ -1,0 +1,80 @@
+
+.item__deactice {
+    border-radius: 20px;
+    margin-top: 6px;
+    border: 1px dotted var(--colorYellow) !important;
+    background-color: var(--white);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.ct__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.active {
+    color: var(--colorYellow) !important;
+    font-size: 22px;
+    margin-top: 10px;
+}
+.order__code {
+    color: var(--colorPrimary);
+}
+
+.price {
+    color: tomato;
+    font-weight: 600;
+}
+.hrb {
+    width: 100%;
+    height: 2px;
+    background-color: var(--colorPrimary);
+    margin: '10px 0px';
+}
+
+.ct__price {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+    margin-top: 10px;
+    border-top: 1px solid var(--colorYellow) !important;
+}
+.active {
+    color: var(--colorPrimary);
+}
+.btnPayment {
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    border: 1px dashed #ecb930;
+    margin-left: 17px;
+    width: 45%;
+    margin-bottom: 15px;
+
+}
+.signCode {
+    color: var(--colorPrimary);
+    font-weight: 500;
+}
+.showDetail {
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 8px 20px;
+    border: 1px solid var(--colorPrimary);
+    border-radius: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.btnButton {
+    background-color: var(--colorPrimary);
+    color: var(--white);
+}
+.btnButton:hover {
+    background-color: var(--colorPrimary);
+    color: var(--white);
+}

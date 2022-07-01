@@ -1,4 +1,4 @@
-import {gateway, domain, cdp} from '../config';
+import {gateway, domain, cdp, price} from '../config';
 import axios from 'axios';
 
 class RequestUtils {

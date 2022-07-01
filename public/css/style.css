@@ -12,6 +12,7 @@
     --colorMoneyPrice: hsl(9, 80%, 54%);
     --colorYellow: #ecb930;
     --dark: #000000;
+    --pink: #f8dddc;
 
 }
 
@@ -107,11 +108,11 @@ hr {
     color: var(--colorPrimary) !important;
 }
 /* ghi đè modal set width*/
-.ant-modal-content {
-    max-width: 400px;
-    margin: auto !important;
-    border-radius: 15px !important;
+.ant-modal {
+    width: 60% !important;
+    /* margin-top: 5% !important; */
 }
+
 .ant-modal-body {
     padding: 0 !important;
 }

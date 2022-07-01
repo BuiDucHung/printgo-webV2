@@ -31,10 +31,12 @@ export const initUser = () => {
 }
 
 
-  export const update = async(values) => {
+  export const updateStore = async(values) => {
     const req = await RequestUtils.postCdp('/customer/update', values, null);
     if(req) {
       changePayment(req);
+      message.success('Cập nhập thành công');
+    }else{
+      message.error('Cập nhập thất bại')
     }
-    message.success(req ? 'Cập nhật thành công .!' : 'Lỗi cập nhật thông tin .!', 2)
   }

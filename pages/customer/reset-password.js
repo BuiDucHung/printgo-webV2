@@ -3,20 +3,19 @@ import Head from 'next/head'
 
 import LayoutWebsite from 'components/layoutUser/Website'
 import IBreadcrumb from 'components/Breadcrumb'
-import ChangePass from 'components/user/ChangePass'
+import { ChangePass} from 'components/user/ResetPass'
 
 
-
-const changePassword = () => {
+const ResetPassword = () => {
  
   return (
     <div>
     <Head>
-        <title>Hồ sơ thanh toán</title>
+        <title>Đổi mật khẩu</title>
     </Head>
     <div className='container'>
-    <IBreadcrumb title={'Đổi mật khẩu'}/>
-     <LayoutWebsite titleSub={'ĐỔI MẬT KHẨU'}>
+    <IBreadcrumb title={'Reset Mật khẩu'}/>
+     <LayoutWebsite titleSub={'RESET MẬT KHẨU'}>
         <ChangePass/>
      </LayoutWebsite>
 </div>
@@ -24,4 +23,4 @@ const changePassword = () => {
   )
 }
 
-export default changePassword
+export default ResetPassword

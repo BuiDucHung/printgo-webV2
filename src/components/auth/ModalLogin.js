@@ -14,13 +14,13 @@ export const ModalLogin = ({visible, setVisible}) => {
     };
 
     const memoForm = React.useMemo(() => {
-        return actionRegister ? <Dangky/> : <Dangnhap setVisible={setVisible}/>
+        return actionRegister ? <Dangky setVisible={setVisible}/> : <Dangnhap setVisible={setVisible}/>
     },[actionRegister])
   
  
     return (
         <div>  
-        <Modal visible={visible} footer={false} closable={false} onCancel={handleCancel} >
+        <Modal style={{maxWidth: '400px'}} visible={visible} footer={false} closable={false} onCancel={handleCancel} >
          <div style={{display: 'flex', justifyContent: 'space-between'}}>
              <p style={{padding: 20}} onClick={handleCancel}>
             <CloseOutlined style={{border: '2px solid #2dbeb3', color: '#2dbeb3', borderRadius: '50px', padding: 3 , fontSize: 20, cursor: 'pointer'}}/></p>

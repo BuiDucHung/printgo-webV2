@@ -31,7 +31,7 @@ const Sidebar = () => {
           {
              !isSSR && (
                <div>
-                  <h4 className={styles.userTitle}>{user?.username}</h4>
+                  <h4 className={styles.userTitle}>{user?.fullname}</h4>
                </div>
              )
           }
@@ -45,17 +45,24 @@ const Sidebar = () => {
                   <li><Link href={'/customer/pay'}>Thông tin thanh toán</Link></li>
                </ul>
             </li>  
-            <li className='parents' onClick={onHandleCLickCart}>
+            <li className='parents'>
+               <Link href={'/customer-order/my-order'}>
                <a><UnorderedListOutlined style={{marginLeft: 4}}/>
                <span className={styles.textMenu}>Quản lý đơn hàng</span>
-               <span className={styles.themeColor_primary_background}>0</span>
+               {
+                     !isSSR && (
+                        <span className={styles.themeColor_primary_background}>{user?.numOfOrder || 0}</span>
+                     )
+               }
                </a>
-               <ul className={openCart ? styles.childsBlock : styles.childs}>
+               </Link>
+               
+               {/* <ul className={openCart ? styles.childsBlock : styles.childs}>
+                  <li><Link href={'/'}><a>Chờ thanh toán <span className={styles.background_sup4}>0</span></a></Link></li>
                   <li><Link href={'/'}><a>Đang xử lý <span className={styles.background_sup1}>0</span></a></Link></li>
-                  <li><Link href={'/'}><a>Đang giao <span className={styles.background_sup2}>0</span></a></Link></li>
-                  <li><Link href={'/'}><a>Đã giao <span className={styles.background_sup3}>0</span></a></Link></li>
+                  <li><Link href={'/'}><a>Hoàn thành <span className={styles.background_sup2}>0</span></a></Link></li>
                   <li><Link href={'/'}><a>Từ chối <span className={styles.background_sup4}>0</span></a></Link></li>
-               </ul> 
+               </ul>  */}
             </li>  
             {/* <li className='parents' onClick={onHandleCLickFile}>
                <a><FileZipOutlined style={{marginLeft: 4}}/><span className={styles.textMenu}>File của tôi</span></a>

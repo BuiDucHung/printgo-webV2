@@ -57,17 +57,17 @@ const Header = () => {
                   !isSSR && (
                     <Col span={19}>
                   {
-                    user?.username ? (
+                    user?.email ? (
                     <div className='authent' style={{cursor: 'pointer'}}>
                       <Title className="hoverMenu" level={5} style={{display: 'flex', gap: 10, alignItems: 'baseline', padding: '5px', fontSize: '14px', width: 110}}>
                       <LockOutlined />
-                        <p>{user?.username.substring(0,11)}...</p>
+                        <p>{user?.email.substring(0,11)}...</p>
                       </Title>
                       <ul className='navAuth'>
                         <li style={{borderBottom:'0.5px dotted #cdcdcd', paddingRight: 20}} onClick={handleLink}>
                           <a style={{fontSize: 12}}> <UserOutlined style={{fontSize: 12}}/> Tài khoản</a>
                         </li>
-                        <li style={{fontSize: 12}} onClick={LogOut}><Link href={'/'}><a>Đăng xuất</a></Link></li>
+                        <li style={{fontSize: 12}} onClick={LogOut}><Link href={'/'}><a href='/'>Đăng xuất</a></Link></li>
                       </ul>
                     </div> 
                     )

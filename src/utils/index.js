@@ -29,7 +29,20 @@ export const parse = (data, df = null) => {
     try {
       return data ? JSON.parse(data) : df
     } catch (er) {
-      /* console.log('====== parse json err --', er); */
       return df;
     }
+};
+
+export const PRINT_V2_TYPE = {
+    hopCung: 'hopCung', hopMem: 'hopMem', option: 'tuyChinh', 
+    tuiGiay: 'tuiGiay', other: 'other', hopSong: 'hopSong', oldForm: 'false'
   };
+  
+export const money = (x) => !x ? 0 : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+export const formatTime = d => {
+    if(d instanceof Date && !isNaN(d)) {
+      return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
+    }
+    return 'N/A';
+}

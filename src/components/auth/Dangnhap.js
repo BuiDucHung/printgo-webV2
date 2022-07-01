@@ -1,26 +1,38 @@
 import React, {useState} from 'react'
-import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
+import { Button, Checkbox, Col, Form, Input, message, Row, Typography } from 'antd';
 import {FacebookOutlined, GoogleOutlined } from '@ant-design/icons';
-import {useForm, Controller} from 'react-hook-form';
 
 import styles from 'styles/ModalLogin.module.css';
-import Link from 'next/link';
+
 import RequestUtils from 'libs/RequestUtils';
 import { change, setTokenAxios } from 'methods/user';
+import { checkErrorBefore } from 'components/user/User-utils';
 
 
 const { Title } = Typography;
 export const Dangnhap = ({setVisible}) => {
-  const { handleSubmit, control} = useForm();
+  const [form] = Form.useForm()
   const [errorMessage, setErrorMessage] = useState('');
-
+  const [isForgot, setForgot] = useState(false);
   const onSubmit = async (value) => {
     try {
-     const data = await RequestUtils.postCdp('/auth/login',value);
-      change(data);
-      setTokenAxios(data.token);
-      if(data) setVisible(false); 
-      
+        if(isForgot){
+          if(value.username && !checkErrorBefore(value.username)){
+            const res = await RequestUtils.getCdp('/auth/url-token-forgot-pass', {email: value.username}, null);
+            if(res){
+              return message.success('Vui lòng check mail để lấy lại mật khẩu', 2)
+            }else{
+              return message.error('Lỗi lấy lại mật khẩu, vui lòng thử lại sau', 2)
+            }
+          }else{
+            return message.warning('Vui lòng kiểm tra địa chỉ email', 2);
+          }
+        }else {
+          const data = await RequestUtils.postCdp('/auth/login',value);
+          change(data);
+          setTokenAxios(data.token);
+          if(data) setVisible(false); 
+        } 
     } catch (error) {
       setErrorMessage(error);
     }
@@ -28,42 +40,37 @@ export const Dangnhap = ({setVisible}) => {
 
   return (
     <div>
-        <Title level={3}>Đăng nhập</Title>
-        <Form name="basic" onFinish={handleSubmit(onSubmit)}>
-            <Controller
-              control={control}
-              name="username"
-              rules={{required: false}}
-              render={({field}) => (
-                <Form.Item {...field} rules={[{ required: true, message: 'Email không được để trống.' }]}>
-                <Input className={styles.inputAuth} placeholder='Email'/>
-                </Form.Item>
-    
-              )}
-            />
+        <Title level={3}>{isForgot ? 'Quên mật khẩu' : 'Đăng nhập'}</Title>
+        <Form form={form} onFinish={onSubmit}>
+            {
+              !!isForgot ? (
+                <Form.Item name={'username'} rules={[{ required: true, message: 'Email không được để trống.' }]}>
+                    <Input className={styles.inputAuth} placeholder='Email'/>
+                  </Form.Item>
+              ) : (
+                <>
+                  <Form.Item name={'username'} rules={[{ required: true, message: 'Email không được để trống.' }]}>
+                    <Input className={styles.inputAuth} placeholder='Email'/>
+                  </Form.Item>
 
-            <Controller
-              control={control}
-              name="password"
-              rules={{required: false}}
-              render={({field}) => (
-                <Form.Item {...field} rules={[{ required: true, message: 'Mật khẩu không được để trống.' }]}>
-                <Input.Password className={styles.inputAuth} placeholder='Mật khẩu'/>
-                </Form.Item>
-              )}
-            />
-            {errorMessage && <p style={{color: '#ff4d4f'}}>Tài khoản hoặc mật khẩu không chính xác</p>}
+                  <Form.Item name={'password'} rules={[{ required: true, message: 'Mật khẩu không được để trống.' }]}>
+                      <Input.Password className={styles.inputAuth} placeholder='Mật khẩu'/>
+                  </Form.Item>
+                  {errorMessage && <p style={{color: '#ff4d4f'}}>Tài khoản hoặc mật khẩu không chính xác</p>}
+                </>
+              )
+            }
             <Row style={{marginTop: 15}}>
             <Col span={8}>
-                <Checkbox> Nhớ tài khoản</Checkbox>
+              <Checkbox> Nhớ tài khoản</Checkbox>
             </Col>
             <Col span={8} offset={8}>
-               <Link href={'/'}><p style={{cursor: 'pointer', textAlign: 'end', color: '#2dbeb3', fontSize: 13}}>Quên mật khẩu</p></Link>
+               <p style={{cursor: 'pointer', textAlign: 'end', color: '#2dbeb3', fontSize: 13}} onClick={() => setForgot(pre => !pre)}>{!isForgot ? 'Quên mật khẩu' : 'Đăng nhập'}</p>
             </Col>
             </Row>
 
             <Form.Item >
-            <Button type="primary" className={styles.btnLogin} htmlType="submit">Đăng nhập</Button>
+            <Button type="primary" className={styles.btnLogin} htmlType="submit">{!!isForgot ? 'Lấy lại mật khẩu' : 'Đăng nhập'}</Button>
             </Form.Item>
             <div style={{width: 284, margin: 'auto'}}>
             <p style={{textAlign: 'center'}}>Hoặc đăng nhập với</p>

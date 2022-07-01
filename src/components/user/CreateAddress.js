@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
-import { Button, Checkbox, Col, Form, Input, message, Row, Select } from 'antd'
-import Link from 'next/link';
-import RequestUtils from 'libs/RequestUtils';
-import { Controller, useForm } from 'react-hook-form';
+import React, {useState, useEffect} from 'react'
+import { Button, Checkbox, Col, Form, Input, message, Modal, Row, Select } from 'antd'
 
+import RequestUtils from 'libs/RequestUtils';
+
+import { useStore } from 'StoreContext';
+import { updateStore } from 'methods/user';
 const { Option } = Select;
 const layout = {
     labelCol: { span: 24},
@@ -16,156 +17,167 @@ const layout = {
   }
   
 
-const CreateAddress = () => {
-    const [form] = Form.useForm();
-    const { handleSubmit, control} = useForm();
+const CreateAddress = ({address, onClose}) => {
 
-    const [provice, setProvice] = useState({});
-    const [listProvince, setListProvice] = useState([]);
+  const [form] = Form.useForm()
+  const { state: { user } } = useStore();
+  const [province, setProvice] = useState({});
+  const [listProvince, setListProvice] = useState([]);
 
-    const [district, setDistrict] = useState({});
-    const [listDistrict, setListDistrict] = useState([]);
+  const [district, setDistrict] = useState({});
+  const [listDistrict, setListDistrict] = useState([]);
 
-    const [ward, setWard] = useState({});
-    const [listWard, setListWard] = useState([]);
-    const [isDefault, setIsDefault] = useState(false);
-
-    const onFinish = async(values) => {
-      try {
-        const sub = {
-          wardId: ward.value, districtId: district.value, provinceId: provice.value,
-          isDefault: isDefault ? 1 : 0, address: values.address, mobilePhone: values.mobilePhone, receiverName: values.receiverName
-        }
-        const addUserInfo = await RequestUtils.postCdp('/customer/create-address', sub);        
-        if(addUserInfo){
-          return message.success('Cập nhập thông tin thành công');
-        }
-      } catch (error) {
-        if(error.response.data){
-          return message.error('Cập nhập thông tin thất bại');
-        }
-      }
-    };
-
-    const onChange = (checked) => {
-      setIsDefault(checked);
-    };
-
-    React.useEffect( () => {
-      RequestUtils.openCdp('/province/lists', {'parent-id': 0}, []).then(provices => setListProvice(createItem(provices)));
-
-    }, []);
-    
-    const onChangeProvince = async(value) => {
-      const item = listProvince.find(item => item.value === value);
+  const [ward, setWard] = useState({});
+  const [listWard, setListWard] = useState([]);
+ 
+  useEffect( () => {
+    RequestUtils.openCdp('/province/lists', {'parent-id': 0}, []).then(provices => setListProvice(createItem(provices)));
+  }, []);
+ 
+  useEffect( () => {
+    if(address?.id) {
+      const item = listProvince.find(item => item.value === address.provinceId);
+      const {provinceId, districtId} = address;
       setProvice(item || {});
-      await RequestUtils.openCdp('/province/lists', {'parent-id': value}, []).then(data => {
-        const items = createItem(data);
-        setListDistrict(items);
-        if(district) {
-          const dit = items.filter(item => item.value === district).shift();
-          setDistrict(dit || {});
-        }
-      });
+      setIsDefault(address.isDefault)
+      form.setFieldsValue(address);
+      onChangeProvince(provinceId);
+      onChangeDistrict(districtId);
+    } else {
+      setProvice({});
+      setDistrict({});
+      setWard({});
+      form.resetFields();
     }
+  }, [listProvince, address]);
+ 
 
-    const onChangeDistrict = async(value) => {
-      const item = listDistrict.find(item => item.value === value);
-      setDistrict(item || {});
-      await RequestUtils.openCdp('/province/lists', {'parent-id': value}, []).then(data => {
-        const items = createItem(data);
-        setListWard(items);
-        if(ward) {
-          const dit = items.find(item => item.value === ward);
-          setWard(dit || {});
-        }
-      });
-    }
+  const onChangeProvince = async(value) => {
+    const item = listProvince.find(item => item.value === value);
+    setProvice(item || {});
+    await RequestUtils.openCdp('/province/lists', {'parent-id': value}, []).then(data => {
+      const items = createItem(data);
+      
+      setListDistrict(items);
+        const dit = items.filter(item => item.value === district).shift(); 
+        setDistrict(dit || {});
+    });
+  }
 
-    const onChangeWard = (value) => {
-      const item = listWard.find(item => item.value === value);
-      setWard(item || {});
-    }
+  const onChangeDistrict = async (value) => {
+    const item = listDistrict.find(item => item.value === value);
+    setDistrict(item || {});
+    await RequestUtils.openCdp('/province/lists', {'parent-id': value}, []).then(data => {
+      const items = createItem(data);
+      setListWard(items);
+      if(ward) {
+        const dit = items.find(item => item.value === ward);
+        setWard(dit || {});
+      }
+    });
+  }
+
+  const onChangeWard = (value) => {
+    const item = listWard.find(item => item.value === value);
+    setWard(item || {});
+  }
+
+  const [isDefault, setIsDefault] = useState(false);
+
+  const onChange = (e) => {
+    setIsDefault(e.target.checked)
+  }
+
+  const onFinish = async(values) => {
+      // Submit and reload
+      const sub = {
+        wardId: ward.value, districtId: district.value, provinceId: province.value, 
+        isDefault: isDefault ? 1 : 0, address: values.address, mobilePhone: values.mobilePhone,
+         receiverName: values.receiverName, id: address?.id || null
+      }
+
+      const service = sub.id ? '/customer/update-address' : '/customer/create-address';
+      const data = await RequestUtils.postCdp(service, sub, null);
+      if(data) {
+        sub.id ? message.success('Update địa chỉ thành công .!') : message.success('Cập nhập thành công .!')
+        if(isDefault) {
+          const newUser = {...user, ...sub }
+          updateStore(newUser);
+        }
+        onClose();
+      } else {
+        message.error('Lỗi update địa chỉ .!', 2);
+      }
+  }
   
   return (
     <div>
-        <Form {...layout} form={form} name="basic" onFinish={handleSubmit(onFinish)} initialValues={{remember: true,}} autoComplete="off">
-          <Controller
-            control={control}
-            name="receiverName"
-            rules={{required: false}}
-            render={({field}) => (
-              <Form.Item {...field} label="Người nhận"rules={[{required: true, message: 'Người nhận không được để trống.'}]}>
+      <Modal
+       visible={address ? true : false}
+       style={{width: '960px'}}
+       maskClosable={false}
+       closable={false}
+       footer={false}
+       onClose={onClose}
+       title={address?.id ? <h2>Thông tin địa chỉ</h2> : <h2>Thêm mới địa chỉ</h2>}
+      >
+        <Form {...layout} form={form} style={{padding: 20, paddingBottom: 40 , paddingTop: 0}} onFinish={onFinish} autoComplete="off"> 
+            <Form.Item name={'receiverName'} label="Người nhận"rules={[{required: true, message: 'Người nhận không được để trống.'}]}>
               <Input type={'text'} style={{height: 40}}/>
             </Form.Item>
-            )}
-          />
-
-          <Controller
-          control={control}
-          name="address"
-          rules={{required: false}}
-          render={({field}) => (
-            <Form.Item {...field} label="Địa chỉ" rules={[{required: true, message: 'Địa chỉ không được để trống.'}]}>
-            <Input type={'text'} style={{height: 40}}/>
+      
+          <Form.Item name={'address'} label="Địa chỉ" rules={[{required: true, message: 'Địa chỉ không được để trống.'}]}>
+          <Input  type={'text'} style={{height: 40}}/>
          </Form.Item>
-          )}
 
-          /> 
            <Row gutter={[16, 16]}>
                <Col span={8}>
-               <Form.Item label="Tỉnh" rules={[{required: true, message: 'Tỉnh/Thành phố không được để trống.'}]}>
+               <Form.Item name="provinceId" label="Tỉnh" rules={[{required: true, message: 'Tỉnh/Thành phố không được để trống.'}]}>
                    <Select placeholder="Tỉnh/Thành phố" allowClear onChange={onChangeProvince}>
                      {
                        listProvince.map((item, id) => (
-                        <Option key={id} value={item.value}>{item.label}</Option>
+                        <Option key={id} value={item.value} >{item.label}</Option>
                        ))
                      }
                 </Select>
              </Form.Item>
                </Col>
                <Col span={8}>
-                <Form.Item label="Quận" rules={[{required: true, message: 'Quận huyện không được để trống.'}]}>
+                <Form.Item name='districtId' label="Quận" rules={[{required: true, message: 'Quận huyện không được để trống.'}]}>
                 <Select placeholder="Quận/Huyện" allowClear onChange={onChangeDistrict}>
                   {
                     listDistrict.map((item, id) => (
-                      <Option key={id} value={item.value}>{item.label}</Option>
+                      <Option key={id} value={item.value} >{item.label}</Option>
                     ))
                   }
                 </Select>
             </Form.Item>
                </Col>
                <Col span={8}>
-                <Form.Item label="Huyện"rules={[{required: true, message: 'Phường xã không được để trống'}]}>
+                <Form.Item name='wardId' label="Phường xã"rules={[{required: true, message: 'Phường xã không được để trống'}]}>
               <Select placeholder="Phường/xã" allowClear onChange={onChangeWard}>
                   {
                     listWard.map((item, id) => (
-                      <Option key={id} value={item.value}>{item.label}</Option>
+                      <Option key={id}  value={item.value} >{item.label}</Option>
                     ))
                   }
               </Select>
             </Form.Item>
                </Col>
            </Row>
-           <Controller
-           control={control}
-           name="mobilePhone"
-           rules={{required: false}}
-           render={({field}) => (
-            <Form.Item {...field} label="Điện thoại di động" name={'phone'} rules={[{required: true, message: 'Điện thoại di động không được để trống.'}]}>
-            <Input type={'text'} style={{height: 40}}/>
+
+            <Form.Item name={'mobilePhone'} label="Điện thoại di động" rules={[{required: true, message: 'Điện thoại di động không được để trống.'}]}>
+            <Input  type={'text'} style={{height: 40}}/>
           </Form.Item>
-           )}
-           />
-       
-           <Checkbox value={isDefault} onChange={onChange} style={{marginTop: 10}}>Mặc định</Checkbox>
+           <Checkbox onChange={onChange} style={{marginTop: 10}}>Mặc định</Checkbox>
            <div style={{display: 'flex', marginTop: 10, justifyContent: 'flex-start', alignItems: 'center', gap: 10}}>
-           <Button type="primary" htmlType="submit">Tạo mới</Button>
-           <Button type="primary" danger><Link href={'/customer/pay'}>Hủy</Link></Button>
+           <Button type="primary" htmlType="submit">{address?.id ? 'Cập nhập' : 'Thêm mới'}</Button>
+           <Button type="primary" onClick={onClose} danger>Hủy</Button>
            </div>
         </Form>
+      </Modal>
     </div>
   )
 }
 
-export default CreateAddress
+export default React.memo(CreateAddress)

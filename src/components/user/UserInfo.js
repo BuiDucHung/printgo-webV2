@@ -1,21 +1,20 @@
 import { Button, Col, Form, Image, Input, message, Row ,Typography, Upload } from 'antd'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styles from 'styles/customerUser.module.css'
 import {PlusSquareOutlined, MessageOutlined, StarOutlined} from '@ant-design/icons'
 import notify from 'styles/sidebar.module.css'
 import { useStore } from 'StoreContext'
 import { UseMout } from 'customerHook/UseMount'
-import { Controller, useForm } from "react-hook-form";
 import RequestUtils from 'libs/RequestUtils'
 
 const { Title } = Typography;
 const UserInfo = () => {
+  const [form] = Form.useForm();
   const {state: {user}} = useStore();
+  
   const [isSSR, setIsSSR] = useState(true);
   const [image, setImage] = useState(null);
   const [nameImg, setNameImg] = useState('');
-  const {handleSubmit, control, formState: { errors } } = useForm();
-
   const onImageChange = (event) => {
     setNameImg(event.fileList[0]?.name)
       if (event.fileList && event.fileList[0]?.originFileObj) {
@@ -35,10 +34,14 @@ const UserInfo = () => {
    UseMout(() => {
     setIsSSR(false);
    })
+
+   useEffect( () => {
+    form.setFieldsValue(user);
+  }, [user]);
   
   return (
     <div>
-      <Form onFinish={handleSubmit(onSubmit)}>
+      <Form form={form} onFinish={onSubmit}>
         <Row>
         <Col span={17}>
             <div className={styles.infoImage}>
@@ -67,43 +70,26 @@ const UserInfo = () => {
         <hr/>
         <Col span={24}>
               <label><b>Họ tên</b></label>
-              <Controller
-              control={control}
-              name="fullname"
-              rules={{required: true}}
-              render={({field}) => (
-                  <Input {...field} className={styles.InputItem} defaultValue={user?.username} placeholder={user?.username} size='100'/>
-              )}
-              />
-              {errors.fullname && <p style={{color: 'red', marginTop: -16}}>Họ Tên không được để trống</p>}
+              <Form.Item name={'fullname'} rules={[{required: true, message: 'Họ Tên không được để trống'}]}>
+              <Input className={styles.InputItem} style={{height: 35, marginBottom: 0}} size='100'/>
+              </Form.Item>
           </Col>
         <Row gutter={[16, 16]}>
           <Col span={12}>
               <label><b>Số điện thoại</b></label>
-              <Controller
-              control={control}
-              name="phone"
-              rules={{required: true}}
-              render={({field}) => (
-                <Input {...field} className={styles.InputItem} defaultValue={user?.phone} placeholder={user?.phone} size='100'/>
-              )}
-              />
-              {errors.phone && <p style={{color: 'red', marginTop: -16}}>Điện thoại không được để trống</p>}
+              <Form.Item name={'phone'} rules={[{required: true, message: 'Điện thoại không được để trống'}]}>
+              <Input className={styles.InputItem} style={{height: 35, marginBottom: 0}} size='100'/>
+              </Form.Item>
+
           </Col>
           <Col span={12}>
           <label><b>Email</b></label>
-          <Controller
-          control={control}
-          name="email"
-          rules={{required: true}}
-          render={({field}) => (
-            <Input {...field} className={styles.InputItem} defaultValue={user?.email} placeholder={user?.email} size='100'/>
-          )}
-          />
-          {errors.email && <p style={{color: 'red', marginTop: -16}}>Điện thoại không được để trống</p>}
+           <Form.Item name={'email'} rules={[{required: true, message: 'Điện thoại không được để trống'}]}>
+              <Input className={styles.InputItem} style={{height: 35, marginBottom: 0}} size='100'/>
+           </Form.Item>
           </Col>
         </Row>
-          <Button type='submit' className={styles.Submit} htmlType="submit">CẬP NHẬP</Button>
+          <Button type='submit' className={styles.Submit} style={{marginTop: 15}} htmlType="submit">CẬP NHẬP</Button>
       </div>
       </Form>
     </div>
