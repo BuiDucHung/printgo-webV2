@@ -1,7 +1,7 @@
 import React from 'react'
 import {Col, Row} from 'antd'
 
-import styles from 'styles/customerUser.module.css'
+import styles from 'styles/customerUser.module.scss'
 import Sidebar from './Sidebar'
 import HeaderUser from './HeaderUser'
 

@@ -1,4 +1,4 @@
-import styles from 'styles/myOrder.module.css';
+import styles from 'styles/myOrder.module.scss';
 
 export const InanHopSongDetail = ({data}) => {
     return (

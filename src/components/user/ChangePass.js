@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Col, Form, Input, message, Row } from 'antd'
 
-import styles from 'styles/customerUser.module.css'
+import styles from 'styles/customerUser.module.scss'
 import RequestUtils from 'libs/RequestUtils';
 
 

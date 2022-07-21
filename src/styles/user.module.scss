@@ -1,0 +1,80 @@
+@import "./varibale.module.scss";
+
+.detail_order {
+    margin-top: 8px;
+    position: relative;
+    border: 1px solid $colorPrimary;
+    border-radius: 10px;
+    background: $white;
+    margin-bottom: 20px;
+    .detail_more {
+        width: 110px;
+        position: absolute;
+        bottom: -1px;
+        left: 30%;
+        text-align: center;
+        align-items: center;
+        background: $white;
+    }
+    .colorIcon {
+        color: $colorPrimary;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: end;
+        display: block;
+        cursor: pointer;
+    }
+    .flex_Content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+}
+.detail_head {
+    background-color: $colorPrimary;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 2px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    .title {
+        color: $white;
+        font-size: 15px;
+        font-weight: bold;
+    }
+}
+
+.status_wrap {
+    background-color: $pink;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.time_left {
+    border-left: 2px solid $colorPrimary;
+    margin-bottom: 20px;
+}
+.btnSub {
+    width: 100%;
+    height: 45px;
+    margin-top: 15px;
+    display: block;
+    background: $colorMoneyPrice !important;
+    color: $white; 
+    border-radius: 50px;
+    border: none;
+}
+.btnSub:hover {
+    background: $colorMoneyPrice;
+}
+.btnDesign {
+    background-color: $colorPrimary !important;
+}

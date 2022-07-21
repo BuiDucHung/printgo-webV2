@@ -7,6 +7,7 @@ import LayoutWebsite from 'components/layoutUser/Website'
 import TabCohoi from 'components/user/TabCohoi'
 import RequestUtils from 'libs/RequestUtils'
 import TabDangXL from 'components/user/TabDangXL'
+import TabOrderDone from 'components/user/TabOrderDone'
 
 
 
@@ -39,7 +40,7 @@ const TabOrder = () => {
                          <TabDangXL/>
                    </TabPane>
                    <TabPane tab="Hoàn thành" key="3">
-                        Hoàn thành
+                        <TabOrderDone/>
                    </TabPane>
                </Tabs>
             </LayoutWebsite>

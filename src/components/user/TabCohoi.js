@@ -46,7 +46,7 @@ const TabCohoi = ({setPriceInfo, nextPress}) => {
             <Row gutter={[8]}>
             {
                 orders.map((item, key) => 
-                    <Col span={8} key={key}>
+                    <Col span={8} xs={24} sm={12} xl={8} key={key}>
                     <OrderItem key={key} order={item} onChoise={onChoise} nextPress={nextPress}/>
                     </Col>
                  )

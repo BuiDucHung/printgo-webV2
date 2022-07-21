@@ -1,0 +1,102 @@
+@import "./varibale.module.scss";
+@import "./mixin.module.scss";
+
+/* Footer */
+.siteFooter {
+    margin-top: 3.5rem;
+    .footer_promotion {
+        padding: 24px 0;
+        background: $colorPrimary;
+        color: $white;
+    }
+}
+
+.single_policy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer_pri {
+    background: url(/img/footer.jpg) no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 534px;
+}
+
+.registerEmail {
+    padding: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+
+    .input_item {
+        height: 48px;
+        max-width: 485px !important;
+        background: #2c3c4a !important;
+        border: none !important;
+        color: $white !important;
+        border-radius: 50px !important;
+        margin-left: -80px !important;
+    }
+
+    .sub_mail {
+        color: $dark;
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: bold;
+        height: 48px;
+        letter-spacing: 0.03em;
+        line-height: 47px;
+        background: #ffdb4a;
+        border: 0;
+        padding: 0px 32px;
+        position: absolute;
+        border-radius: 50px;
+        margin-left: -49px;
+    } 
+}
+
+.footer_lastchild {
+    border-right: 1px solid #cccccc1a;
+    .nav_title {
+        text-align: center;
+        color: $white !important;
+        font-size: 14px !important;
+        padding-bottom: 10px;
+    }
+    ul .nav_list {
+        padding-top: 10px;
+    }
+    
+    .icon_Image {
+        text-align: center;
+        padding-top: 10px;
+    }
+}
+
+.gold {
+    color: #ffdb4a;
+}
+.green {
+    color: $colorPrimary;
+    font-weight: bold;
+}
+
+
+.copyright {
+    padding: 12px 0;
+    color: $white;
+    border-top: 1px solid #515151;
+
+    .notificate {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        position: absolute;
+    }   
+}
+
+
+

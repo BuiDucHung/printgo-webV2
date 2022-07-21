@@ -1,5 +1,4 @@
-import App from 'next/app';
-import '../public/css/style.css'
+import '../public/scss/style.scss'
 import {withRouter} from 'next/router';
 import Head from 'next/head'
 import LayoutMain from 'components/LayoutMain';
@@ -7,7 +6,7 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import { StoreProvider } from 'StoreContext';
 
 function MyApp({ Component, pageProps }) {
-  return <>
+  return <div>
       <Head>
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="mobile-web-app-capable" content="yes" />
@@ -46,7 +45,7 @@ function MyApp({ Component, pageProps }) {
     </LayoutMain>
     </StoreProvider>
   
-  </>  
+  </div>  
 }
 
 export default withRouter(MyApp); 

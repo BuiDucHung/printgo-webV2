@@ -1,0 +1,142 @@
+@import "./varibale.module.scss";
+
+
+.contentEnduser {
+    box-shadow: 3px 10px 15px 7px rgb(0 0 0 / 10%);
+    border-radius: 10px;
+    padding: 0;
+    min-height: 606px;
+
+    .sideContent {
+        min-height: 606px;
+        background: #f4f7fc;
+        border-radius: 0 10px 0 0;
+    
+    }
+}
+
+
+.sideHeader {
+    padding: 10px 21px 0;
+    background: $white;
+    border-radius: 0 10px 0 0;
+    padding-bottom: 5px;
+
+    .rightNotification {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.customFileInput {
+    opacity: 0;
+    position: absolute;/*set position to be exactly over your input*/
+    left: 0;
+    top: 0;
+}
+
+.userAvatar {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 38px;
+    height: 38px;
+    background-color: #eeeeee;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid $white;
+    box-shadow: 0px 10px 15px 0px rgb(0 0 0 / 10%);
+}
+
+
+
+.sidebarUser {
+    margin: 16px 12px;
+    padding: 0 32px 0 56px;
+    min-height: 32px;
+    position: relative;
+}
+
+.green {
+    color: $colorPrimary;
+    font-weight: bold;
+}
+
+.infoImage {
+    margin: 0 0 0;
+    padding: 0 2px 0 108px;
+    min-height: 44px;
+    position: relative;
+
+    .img_avt {
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-shadow: 0 10px 15px 0 rgb(0 0 0 / 10%);
+        width: 90px;
+        height: 90px;
+        border: 5px solid $white;
+        background-color: #eee;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .userTitle {
+        margin: 0 0 3px;
+        padding: 2px 0 0;
+        line-height: 11px;
+        font-size: 12px;
+        font-weight: 600;
+        color: $colorPrimary;
+    }
+}
+
+.upLoad {
+    height: 32px !important;
+    border: 2px solid $colorPrimary !important;
+    background: #f4f7fc;
+    border-radius: 20px;
+    margin-top: 12px;
+    line-height: 20px;
+    color: $colorPrimary;
+    padding: 4px 14px;
+    font-weight: bold;
+    font-size: 12px;
+    &:hover {
+        color: $colorPrimary;
+    }
+}
+.borderRight {
+    border: 1px solid $colorPrimary;
+    border-radius: 10px;
+    padding: 19px 10px 12px;
+}
+
+.formUser {
+    padding: 10px;
+    border-radius: 20px;
+    margin: 32px 10px 60px;
+    height: 253px;
+
+    .InputItem {
+        border-radius: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+.Submit {
+    float: right;
+    text-align: right;
+    height: 40px;
+    color: $white;
+    background-color: $colorPrimary;
+    border-color: transparent;
+    border-radius: 20px;
+    font-weight: 700;
+    padding: 0px 50px;
+    &:hover {
+        color: $white;
+        background-color: $colorPrimary;
+        border: none;
+    }  
+}

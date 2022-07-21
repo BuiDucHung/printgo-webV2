@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import { Button, Col, Popconfirm, Radio, Row, Space, Table, Typography } from 'antd';
 import {DeleteOutlined} from '@ant-design/icons';
-import styles from 'styles/payInfo.module.css'
-import btn from 'styles/customerUser.module.css'
+import styles from 'styles/payInfo.module.scss'
+import btn from 'styles/customerUser.module.scss'
 import { PlusSquareOutlined, FormOutlined } from '@ant-design/icons';
 
 import { useStore } from 'StoreContext';

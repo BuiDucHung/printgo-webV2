@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import { Modal } from 'antd';
+import { Drawer} from 'antd';
 import InfoDesign from 'container/order/InfoDesign';
 import Printing from 'container/order/Printing';
 import RequestUtils from 'libs/RequestUtils';
 
-import styles from 'styles/user.module.css';
+import styles from 'styles/user.module.scss';
 import OrderHistory from './OrderHistory';
 import OrderHistoryTimeline from './OrderHistoryTimeline';
 
 const ItemDesignSign = ({detail, paid, total, id, code}) => {
-
-  const {detailDesign, status} = detail;
+  
+  const { detailDesign, status } = detail;
   const [showDetail ,setShowDetail] = useState(false);
   const [ detailEdits, setDetailEdits ] = useState([]);
 
@@ -33,15 +33,13 @@ const ItemDesignSign = ({detail, paid, total, id, code}) => {
         </div>
       </div>
       {
-        showDetail && <Modal style={{maxWidth: '600px'}} 
-        visible={showDetail} closable={false} 
-        footer={false} onCancel={clickDetail}>
-         <div style={{padding: 20}}>
+        showDetail && <Drawer visible={showDetail} width={600} onClose={clickDetail}>
+         <div>
             <OrderHistory detailEdits={detailEdits} status={status} detailId={detail.id}/>
             <OrderHistoryTimeline code={detail.code}/>
           <InfoDesign data={detailDesign} kichthuoc={detailDesign?.kichthuoc || ''}/>
          </div>
-        </Modal>
+        </Drawer>
       }
     </>
   )

@@ -8,3 +8,6 @@ export const ACTIONS = {
 export const TYPE_FORM_TEXT = 'text';
 export const TYPE_FORM_AREA = 'area';
 export const TYPE_FORM_MULTIPLE = 'mutiple';
+
+export const DEPARTMENT_DESIGNER = 'DESIGNER';
+export const STATUS_DESIGN = [1,2,3,17];

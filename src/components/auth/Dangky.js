@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import { Button, Form, Input, Typography } from 'antd';
 
-import styles from 'styles/ModalLogin.module.css';
+import styles from 'styles/ModalLogin.module.scss';
 import RequestUtils from 'libs/RequestUtils';
 import { change, setTokenAxios } from 'methods/user';
-import { parse } from 'utils';
+import { parse } from '../../utils/index';
 import { useRouter } from 'next/router';
 
 

@@ -1,4 +1,4 @@
-import { getValueLocal, parse, setValueLocal } from "utils";
+import { getValueLocal, parse, setValueLocal } from "../utils/index";
 const KEY_COMBO = 'combo';
 const KEY_TAMPLACE = 'templace';
 

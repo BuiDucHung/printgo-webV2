@@ -4,7 +4,7 @@ import { Button, Checkbox, Col, Form, Input, message, Modal, Row, Select } from 
 import RequestUtils from 'libs/RequestUtils';
 
 import { useStore } from 'StoreContext';
-import { updateStore } from 'methods/user';
+import { update } from 'methods/user';
 const { Option } = Select;
 const layout = {
     labelCol: { span: 24},
@@ -19,7 +19,8 @@ const layout = {
 
 const CreateAddress = ({address, onClose}) => {
 
-  const [form] = Form.useForm()
+  const [form] = Form.useForm();
+  const {setFieldsValue, resetFields} = form
   const { state: { user } } = useStore();
   const [province, setProvice] = useState({});
   const [listProvince, setListProvice] = useState([]);
@@ -40,14 +41,14 @@ const CreateAddress = ({address, onClose}) => {
       const {provinceId, districtId} = address;
       setProvice(item || {});
       setIsDefault(address.isDefault)
-      form.setFieldsValue(address);
+      setFieldsValue(address);
       onChangeProvince(provinceId);
       onChangeDistrict(districtId);
     } else {
       setProvice({});
       setDistrict({});
       setWard({});
-      form.resetFields();
+      resetFields();
     }
   }, [listProvince, address]);
  
@@ -89,7 +90,7 @@ const CreateAddress = ({address, onClose}) => {
   }
 
   const onFinish = async(values) => {
-      // Submit and reload
+  
       const sub = {
         wardId: ward.value, districtId: district.value, provinceId: province.value, 
         isDefault: isDefault ? 1 : 0, address: values.address, mobilePhone: values.mobilePhone,
@@ -102,7 +103,7 @@ const CreateAddress = ({address, onClose}) => {
         sub.id ? message.success('Update địa chỉ thành công .!') : message.success('Cập nhập thành công .!')
         if(isDefault) {
           const newUser = {...user, ...sub }
-          updateStore(newUser);
+          update(newUser);
         }
         onClose();
       } else {
@@ -118,10 +119,11 @@ const CreateAddress = ({address, onClose}) => {
        maskClosable={false}
        closable={false}
        footer={false}
+       getContainer={false}
        onClose={onClose}
        title={address?.id ? <h2>Thông tin địa chỉ</h2> : <h2>Thêm mới địa chỉ</h2>}
       >
-        <Form {...layout} form={form} style={{padding: 20, paddingBottom: 40 , paddingTop: 0}} onFinish={onFinish} autoComplete="off"> 
+        <Form {...layout} form={form} style={{padding: 20, paddingBottom: 40 , paddingTop: 0}} initialValues={{ remember: true }} onFinish={onFinish} autoComplete="off"> 
             <Form.Item name={'receiverName'} label="Người nhận"rules={[{required: true, message: 'Người nhận không được để trống.'}]}>
               <Input type={'text'} style={{height: 40}}/>
             </Form.Item>

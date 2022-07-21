@@ -1,0 +1,224 @@
+@import "./varibale.module.scss";
+@import "./mixin.module.scss";
+
+.boxStyle {
+    box-shadow: rgb(149 157 165 / 20%) 0px 4px 11px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        color: $colorPrimary;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: rgb(100 100 111 / 20%) 0px -4px 15px 4px;
+    }
+}
+
+.center {
+    text-align: center;
+    .text {
+       text-transform: uppercase;
+       color: #9c9c9c;
+    }
+    .subTitle {
+       text-transform: uppercase;
+       font-size: 27px;
+       margin-top: 0 !important;
+    }
+    .number {
+        width: 10%;
+        height: 2px;
+        background: $dark;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
+}
+
+.mtLeft {
+   max-width: 90%;
+   margin-left: 6%;
+   margin-right: 6%;
+   margin-bottom: 10%;
+   .btt {
+    width: 25%;
+    height: 2px;
+    background: $colorMoneyPrice;
+    margin-top: 34px;
+    margin-bottom: 20px;
+   }
+}
+
+.ht_tile {
+    background: url('https://printgo.vn/img/xchan-hong.jpg.pagespeed.ic.QRcucPMrwi.webp') no-repeat;
+    background-size: 86% 69%;
+    height: 44px;
+    .pinks {
+        text-transform: uppercase;
+        color: $colorMoneyPrice;
+        font-weight: bold;
+    }
+}
+
+
+@keyframes animate {
+    from {
+        opacity: 0.3;
+    }
+    to{
+        visibility: visible;
+    }
+}
+
+.boxWrap {
+    border: 1px solid $dark; 
+    border-radius: 10px;
+    cursor: pointer; 
+    &:hover{
+        border: 1px solid $colorPrimary; 
+    }
+    &:hover .btnWatch {
+        animation-name: animate;
+        animation-duration: 4s;
+    }
+    .icon_image {
+       width: 65px;
+       height: 65px;
+
+    }
+    &:hover .icon_image {
+        color: $colorPrimary;
+    }
+    .btnWatch {
+        margin-top: 20px;
+        width: 100%;
+        border-radius: 50px;
+        font-weight: bold;
+        background-color: $colorPrimary;
+        border: none;
+        visibility: hidden;
+        &:hover {
+            background-color: $colorPrimary;
+        }
+    }
+}
+.btn_watch__many {
+    width: 20%;
+    margin: auto;
+    display: block;
+    margin-top: 20px;
+    border-radius: 50px;
+    height: 41px;
+    font-weight: bold;
+    border: none;
+    background-color: $colorPrimary;
+    &:hover {
+        background-color: $colorPrimary; 
+    }
+}
+.product_image {
+    cursor: pointer;
+    &:hover .btnPrice {
+        background: $colorPrimary;
+        color: $white;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+.btnPrice {
+    border: 1px solid #959595;
+    border-radius: 50px;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 5px;
+    cursor: pointer;
+   & a {
+       color: $dark;
+   }
+}
+.review {
+    background: url('https://printgo.vn/img/xbanner-top.jpg.pagespeed.ic.0d-lvx1FPs.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 708px;
+    margin-top: 2%;
+}
+
+.click_video {
+    text-align: center;
+    display: block;
+    background: #ff3d89;
+    color: $white;
+    padding: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 28px;
+    position: absolute;
+    bottom: -60px;
+    width: 243px;
+    right: 170px;
+    cursor: pointer;
+}
+.content {
+    padding-top: 20px;
+    .copy_right {
+        padding-top: 15px;
+    }
+}
+
+.card_header {
+    background: #F7F6FA;
+    @include size(274px);
+    min-height: 375px;
+    .ht_oneline {
+        padding: 12px 0 8px 0;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+        width: 74%;
+        margin-left: 32px;
+        font-size: 12px;
+        display: flex;
+        gap: 20%;
+    }
+    .flext {
+        display: flex;
+        align-items: center;
+        gap: 8%;
+        margin-left: 5px;
+    }
+    .title {
+        padding: 10px 7px 0 20px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        &:hover {
+            color: $colorPrimary;
+        }
+    }
+    .excerpt {
+        padding: 5px 7px 0 20px;
+        font-size: 13px;
+        color: #616161;
+        cursor: pointer;
+    }
+}
+
+.btn_new1 {
+    text-align: end;
+    display: block;
+    .btn_detail {
+       border: none;
+       margin-top: -12px;
+       height: 40px;
+       text-transform: uppercase;
+       display: block;
+       position: absolute;
+       right: 9px
+    }
+}
+

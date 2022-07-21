@@ -2,8 +2,8 @@ import React from 'react'
 import { Col, Row, Typography } from 'antd'
 import {BellFilled} from '@ant-design/icons'
 
-import notify from 'styles/sidebar.module.css'
-import styles from 'styles/customerUser.module.css'
+import notify from 'styles/sidebar.module.scss'
+import styles from 'styles/customerUser.module.scss'
 
 const { Title } = Typography;
 const HeaderUser = ({titleSub}) => {

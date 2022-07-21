@@ -3,10 +3,10 @@ import { decodeProperty } from 'libs';
 import React, {useState, useCallback } from 'react'
 import {CaretDownOutlined, CaretUpOutlined} from '@ant-design/icons'
 
-import styles from 'styles/myOrder.module.css';
+import styles from 'styles/myOrder.module.scss';
 import { money } from 'utils';
 
-import { DetailBox } from './detailBox';
+import { DetailBox } from './DetailBox';
 
 
 const {Title} = Typography;

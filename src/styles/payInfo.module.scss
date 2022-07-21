@@ -1,0 +1,32 @@
+@import "./varibale.module.scss";
+
+.infoPay {
+    background: $white;
+    border-radius: 20px;
+    padding: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 15px 0 rgb(0 0 0 / 10%);
+    .title {
+      margin: 12px 20px;
+      font-size: 17px !important;
+    }
+    .adddress {
+      display: flex;
+      justify-content: flex-end;
+      margin: 12px 20px;
+   }
+}
+
+.noneShip {
+    text-align: center;
+    padding: 40px;
+}
+
+.update {
+  color: $colorPrimary;
+}
+.delete {
+  color: $colorMoneyPrice;
+
+}

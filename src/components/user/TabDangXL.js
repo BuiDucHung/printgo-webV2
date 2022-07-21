@@ -28,7 +28,7 @@ const TabDangXL = () => {
             {
                 order.map((order, index) => (
                 <OrderContext.Provider value={order}>
-                    <Col span={8}>
+                    <Col span={8} xs={24} sm={12} xl={8} key={index}>
                         <OrderDetail key={index} order={order}/>
                     </Col>
                 </OrderContext.Provider> 
@@ -36,7 +36,7 @@ const TabDangXL = () => {
             }
           </Row>
           {
-            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+           page.totalPages > 1 && <div style={{display: 'flex', justifyContent: 'flex-end'}}>
             <Pagination onChange={onchangePage} defaultCurrent={page.page} total={page.totalElements} defaultPageSize={page.size}/>
             </div>
           }

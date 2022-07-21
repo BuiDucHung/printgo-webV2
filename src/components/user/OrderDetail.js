@@ -9,13 +9,19 @@ const OrderDetail = ({order}) => {
   return (
     <div >
         {
+          
             order.customerOrderDetail.map((item, key) => (
-            item.orderType === 0 ? (
-            <DynamicItemSignPrint key={key} detail={item} code={order.code} id={order.id} paid={order.paid} total={order.total}/> 
+            <div key={key}>
 
-            )
-            : <DynamicItemPrint key={key} detail={item} code={order.code} id={order.id} paid={order.paid} total={order.total}/>
-            ))
+              {
+                item.orderType === 0 ? (
+                  <DynamicItemSignPrint key={item.id} detail={item} code={order.code} id={order.id} paid={order.paid} total={order.total}/> 
+      
+                  )
+                : <DynamicItemPrint key={item.id} detail={item} code={order.code} id={order.id} paid={order.paid} total={order.total}/>
+              }
+
+            </div>))
         }
     </div>
   )

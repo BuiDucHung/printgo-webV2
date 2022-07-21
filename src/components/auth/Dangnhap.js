@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Button, Checkbox, Col, Form, Input, message, Row, Typography } from 'antd';
 import {FacebookOutlined, GoogleOutlined } from '@ant-design/icons';
 
-import styles from 'styles/ModalLogin.module.css';
+import styles from 'styles/ModalLogin.module.scss';
 
 import RequestUtils from 'libs/RequestUtils';
 import { change, setTokenAxios } from 'methods/user';

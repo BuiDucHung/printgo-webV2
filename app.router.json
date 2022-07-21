@@ -1,12 +1,11 @@
 {
     "name":[
-        { "pattern":"/", "page":"index" }
+        { "pattern":"/", "page":"index" },
+        { "pattern":"/category", "page":"category" }
     ],
     "user": [
-        { "pattern":"/customer", "page":"customer", "is_auth_require": true },
-        { "pattern":"/customer-address", "page":"customer-address", "is_auth_require": true },
-        { "pattern":"/customer-address/create", "page":"create", "is_auth_require": true },
-        { "pattern":"/customer-order/info-banking", "page":"info-banking", "is_auth_require": true},
-        { "pattern":"/customer/pay", "page":"pay", "is_auth_require" : true}
+        { "pattern":"/customer/info", "page":"info", "is_auth_require": true },
+        { "pattern":"/customer-order/my-order", "page":"my-order", "is_auth_require": true},
+        { "pattern":"/customer/info-pay", "page":"info-pay", "is_auth_require" : true}
     ]
 }

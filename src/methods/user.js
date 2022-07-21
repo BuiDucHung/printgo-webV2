@@ -2,7 +2,7 @@ import { message } from 'antd';
 import axios from 'axios';
 import RequestUtils from 'libs/RequestUtils';
 
-import { getValueLocal, parse, removeValueLocal, setValueLocal } from 'utils';
+import { getValueLocal, parse, removeValueLocal, setValueLocal } from '../utils/index';
 import { putToStore } from './changeStore';
 
 export const setTokenAxios = tk => axios.defaults.headers.common['Authorization'] = 'Bearer ' + tk

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {UserOutlined, UnorderedListOutlined, FileZipOutlined, PictureOutlined, LockOutlined, WechatOutlined, PhoneOutlined} from '@ant-design/icons'
 import {Button, Typography} from 'antd';
 
-import styles from 'styles/sidebar.module.css'
+import styles from 'styles/sidebar.module.scss'
 import Link from 'next/link';
 import { LogOut } from 'methods/user';
 import { useStore } from 'StoreContext';
@@ -13,12 +13,8 @@ const Sidebar = () => {
    const {state: {user}} = useStore();
    const [isSSR, setIsSSR] = useState(true);
    const [openInfo, setOpenInfo] = useState(false);
-   const [openCart, setOpentCart] = useState(false);
-   const [openFile, setOpentFile] = useState(false);
 
    const onHandleCLickInfo = () => setOpenInfo(pre => !pre);
-   const onHandleCLickCart = () => setOpentCart(pre => !pre);
-   const onHandleCLickFile = () => setOpentFile(pre => !pre)
 
    UseMout(() => {
       setIsSSR(false);
@@ -41,8 +37,8 @@ const Sidebar = () => {
             <li className='parents' onClick={onHandleCLickInfo}>
                <a><UserOutlined style={{marginLeft: 4}}/><span className={styles.textMenu}>Thông tin</span></a>
                <ul className={openInfo ? styles.childsBlock : styles.childs}>
-                  <li><Link href={'/customer'}>Thông tin chung</Link></li>
-                  <li><Link href={'/customer/pay'}>Thông tin thanh toán</Link></li>
+                  <li><Link href={'/customer/info'}>Thông tin chung</Link></li>
+                  <li><Link href={'/customer/info-pay'}>Thông tin thanh toán</Link></li>
                </ul>
             </li>  
             <li className='parents'>

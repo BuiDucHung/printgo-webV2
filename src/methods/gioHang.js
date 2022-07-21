@@ -1,4 +1,4 @@
-import { getValueLocal, parse } from 'utils';
+import { getValueLocal, parse } from '../utils/index';
 import { DataManager } from '../utils/StoreManager';
 
 const KEY = "card";

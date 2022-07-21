@@ -3,7 +3,7 @@ import { Button, Col, Form, Input, message, Row } from 'antd'
 import RequestUtils from 'libs/RequestUtils';
 import { useRouter } from 'next/router';
 
-import styles from 'styles/customerUser.module.css'
+import styles from 'styles/customerUser.module.scss'
 
 export const ChangePass = () => {
     const [form] = Form.useForm();

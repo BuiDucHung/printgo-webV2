@@ -15,6 +15,16 @@ export const checkErrorBefore = (value, type='text') => {
     }
 }
 
+export const formatTimeCreate = time => {
+  const date = new Date(time);
+  const hours = date.getHours();
+  const mins = date.getMinutes();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${hours}h${mins}' /${day}.${month}.${year}`;
+}
+
 export const formatTimeDone = time => {
   const date = new Date(time);
   const year = date.getFullYear();

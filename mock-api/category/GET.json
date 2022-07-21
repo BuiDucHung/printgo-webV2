@@ -1,0 +1,31 @@
+[
+    {
+        "id": 1,
+        "name": "Tất cả"
+    },
+    {
+        "id": 2,
+        "name": "Danh thiếp"
+    },
+    {
+        "id": 3,
+        "name": "Tờ rơi"
+    },
+    {
+        "id": 4,
+        "name": "Bì thư"
+    },
+    {
+        "id": 5,
+        "name": "Phiếu quà tặng"
+    },
+    {
+        "id": 6,
+        "name": "CATALOGUE"
+    },
+    {
+        "id": 7,
+        "name": "NHÃN ĐỀ CAN"
+    }
+
+]

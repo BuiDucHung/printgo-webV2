@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Modal } from 'antd';
 import {CloseOutlined, UserAddOutlined, UserDeleteOutlined} from '@ant-design/icons';
 
-import styles from 'styles/ModalLogin.module.css';
+import styles from 'styles/ModalLogin.module.scss';
 import Dangky from './Dangky';
 import { Dangnhap } from './Dangnhap';
 

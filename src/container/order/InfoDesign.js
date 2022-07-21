@@ -2,13 +2,13 @@ import React, {useState, useCallback, useEffect} from 'react'
 import { Typography } from 'antd';
 import {CaretUpOutlined, CaretDownOutlined} from '@ant-design/icons';
 
-import styles from 'styles/myOrder.module.css';
+import styles from 'styles/myOrder.module.scss';
 import { formatTimeDone } from 'components/user/User-utils';
 import { money } from 'utils';
 
 import { decodeProperty } from 'libs';
 
-const {Title} = Typography;
+const {Title , Text} = Typography;
 const InfoDesign = ({data, kichthuoc}) => {
     const [ more, setMore ] = useState(false);
     const [ addRequire, setRequire ] = useState([]);
@@ -35,19 +35,19 @@ const InfoDesign = ({data, kichthuoc}) => {
         <Title level={4}>THÔNG TIN THIẾT KẾ</Title>
         <div className={styles.ct__content}>
             <Title level={5}>Thời gian dự kiến trả file</Title>
-            <span>{data.confirmTime ? formatTimeDone(data.confirmTime) : 'N/A'}</span>
+            <Text>{data.confirmTime ? formatTimeDone(data.confirmTime) : 'N/A'}</Text>
         </div>
         <div className={styles.ct__content}>
             <Title level={5}>Kích thước</Title>
-            <span>{kichthuoc || 'N/A'}</span>
+            <Text>{kichthuoc || 'N/A'}</Text>
         </div>
         <div className={styles.hrb}></div>
         <div className={styles.ct__content} style={{paddingTop: 15}}>
             <Title level={5}>Chi phí thiết kế</Title>
-            <span className={styles.price}>{data.designFee ? (money(data.designFee) + ' đ') : 'Không tính phí'}</span>
+            <Text className={styles.price}>{data.designFee ? (money(data.designFee) + ' đ') : 'Không tính phí'}</Text>
         </div>
         <div className={styles.showDetail} onClick={onClick}>
-            <span>Chi tiết</span>
+            <Text>Chi tiết</Text>
             {!more ? <CaretDownOutlined /> : <CaretUpOutlined />}
         </div>
         {

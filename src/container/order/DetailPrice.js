@@ -2,7 +2,7 @@ import React, {useState,} from 'react'
 import {DownOutlined, RightOutlined} from '@ant-design/icons'
 import { Button, Typography} from 'antd';
 
-import styles from 'styles/myOrder.module.css';
+import styles from 'styles/myOrder.module.scss';
 import { money } from 'utils';
 
 const { Title } = Typography;

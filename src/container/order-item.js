@@ -1,10 +1,10 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import {CheckCircleOutlined, SmallDashOutlined } from '@ant-design/icons'
 
-import styles from 'styles/myOrder.module.css';
-import { formatTime, money } from 'utils';
+import styles from 'styles/myOrder.module.scss';
+import { formatTime, money } from '../utils/index';
 import RequestUtils from 'libs/RequestUtils';
-import {message, Modal, Typography } from 'antd';
+import {Drawer, message, Typography } from 'antd';
 import InfoDesign from './order/InfoDesign';
 import DetailPrice from './order/DetailPrice';
 import { decodeProperty } from 'libs';
@@ -58,10 +58,11 @@ const OrderItem = ({order, onChoise, nextPress}) => {
             <strong>Tổng chi phí</strong>
             <strong className={styles.price}>{money(order.total)} đ</strong>
         </div>
+
        {
          showDetail ? (
-          <Modal style={{maxWidth: '600px'}} visible={showDetail} closable={false} onCancel={onClickDot} footer={false}>
-            <div style={{padding: 20}}>
+          <Drawer visible={showDetail} width={600} onClose={onClickDot} >
+            <div>
               {
                 order.customerOrderDetail.map((item , key) => (
                 <div key={key} >
@@ -74,7 +75,7 @@ const OrderItem = ({order, onChoise, nextPress}) => {
                 ))
               }
             </div>
-          </Modal>
+          </Drawer>
          ) : (null)
        }
 

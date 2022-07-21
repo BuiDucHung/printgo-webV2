@@ -2,8 +2,8 @@ import { Typography } from 'antd';
 import { formatTimeDone, textDetailStatus } from 'components/user/User-utils';
 import React from 'react'
 
-import styles from 'styles/user.module.css';
-import payInfo from 'styles/myOrder.module.css';
+import styles from 'styles/user.module.scss';
+import payInfo from 'styles/myOrder.module.scss';
 import { money } from 'utils';
 import CustomeIcon from 'utils/CustomeIcon';
 import RequestUtils from 'libs/RequestUtils';
@@ -11,7 +11,7 @@ import RequestUtils from 'libs/RequestUtils';
 const {Text,Title} = Typography;
 const Printing = ({detail, paid, total, id, code}) => {
     const parame = { orderIds: id, price: (total - paid)}; 
-
+    const {detailPrinting} = detail;
     const handleSubmit = () => {
         RequestUtils.postCdpDirectResult('/order/create-history-pay', parame).then(str => {
           if(!str) {
@@ -22,7 +22,7 @@ const Printing = ({detail, paid, total, id, code}) => {
         }) 
     }
   
-    const { detailPrinting } = detail;
+   
   
   return (
     <div>
@@ -32,7 +32,7 @@ const Printing = ({detail, paid, total, id, code}) => {
         </div>
         <div style={{padding: 10}}>
             <div className={styles.status_wrap}>
-                <div style={{display: 'flex', alignItems: 'center'}}>
+                <div style={{display: 'flex', gap: 5, alignItems: 'center'}}>
                     <CustomeIcon style={{width:15, height: 15}} type='/svg/ft-menu-design.svg'/>
                     <Text >{textDetailStatus(detail.status)}</Text>
                 </div>

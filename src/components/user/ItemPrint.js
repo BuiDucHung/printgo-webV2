@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import { Modal } from 'antd';
+import { Drawer, Modal } from 'antd';
 import Printing from 'container/order/Printing';
 import RequestUtils from 'libs/RequestUtils';
 
 
-import styles from 'styles/user.module.css';
+import styles from 'styles/user.module.scss';
 import { decodeProperty } from 'libs';
 import Combo from 'container/order/Combo';
 
@@ -49,11 +49,8 @@ const ItemPrint = ({detail, paid, total, id, code}) => {
         </div>
       </div>
       {
-        showDetail && <Modal style={{maxWidth: '600px'}} 
-        visible={showDetail} closable={false} 
-        onCancel={clickDetail}
-        footer={false}>
-             <div style={{padding: 20}}>
+        showDetail && <Drawer visible={showDetail} width={600} onClose={clickDetail}>
+             <div>
              <Combo
                 dayDuote={detail.dayDuote}
                 dongia={detailPrinting?.printingPrice || 0}
@@ -65,7 +62,7 @@ const ItemPrint = ({detail, paid, total, id, code}) => {
                 packageId={detailPrinting?.packetId || 'N/A'} />
                 <OrderHistoryTimeline code={detail.code}/>
              </div>
-        </Modal>
+        </Drawer>
       }
     </>
   )

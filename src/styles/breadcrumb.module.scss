@@ -1,0 +1,10 @@
+@import "./varibale.module.scss";
+
+.breadcrumb {
+    padding: 10px 0;
+}
+
+.active {
+    color: $colorPrimary;
+    font-size: 12px;
+}
