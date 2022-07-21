@@ -5,7 +5,7 @@ const next = require('next')
 const helmet = require('helmet')
 const routes = require('./routes')
 
-const APP_ROUTES = require('../../app.router.json');
+const APP_ROUTES = require('../app.router.json');
 const port = parseInt(process.env.PORT, 3100) || 8111
 
 const dev = process.env.NODE_ENV !== 'production'
